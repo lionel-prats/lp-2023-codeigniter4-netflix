@@ -1,0 +1,131 @@
+VIDEO 11 
+
+creacion del proyecto vvv
+composer create-project codeigniter4/appstarter lp-2023-codeigniter4-netflix
+
+----- 
+
+VIDEO 13 
+
+*** comando spark
+php spark serve -> para levantar un servidor de desarrollo
+
+----- 
+
+VIDEO 15 
+
+*** comando spark
+php spark -> para ver la lista de comandos disponible de spark
+
+----- 
+
+VIDEO 17
+
+setear en modo desarrollo la aplicacion para poder ver errores de ejecucion por pantalla vvv
+.env vvv
+CI_ENVIRONMENT = development 
+
+* esta variable de entorno aparentemente hace referencia al archivo /app/Config/Boot/development.php
+
+* todo archivo que comienza con un punto (ej .env) es un archivo oculto
+
+* cuando existe un error en tiempo de ejecucion, ademas de mostrarse el mismo por pantalla, se escribe en archivos.log dentro de /writable/logs/archivo.log
+
+app/Config/Boot 
+
+----- 
+
+VIDEO 18
+
+CONFIGURAR LA CONEXION A LA BASE DE DATOS: 
+
+1. creo la BD desde CMD, dese MariaDB vvv 
+
+C:\xampp\mysql\bin>mysql -u root -p
+CREATE DATABASE netflix;
+
+2. en .env defino las variables de entorno vvv 
+
+database.default.hostname = 127.0.0.1
+database.default.database = netflix
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+database.default.port = 3306
+
+* recordar que al setear la aplicacion en modo desarrollo (VIDEO 17), se tomaran las variables de entorno del tipo database.default.xxx como datos de conexion a la BD 
+
+* recordar que al activar estas variables de entorno en el .env, la aplicacion tomara estos datos de conexion para realizar la conexion a la BD (si estas variables en el .env no exisitieran, la app iria a buscar los datos de conexion a la BD a /app/Config/Database.php)
+
+----- 
+
+VIDEO 19
+
+* ejemplo de como retonar un json desde un metodo de un controlador vvv 
+
+public function contact()
+{
+    return json_encode(array(
+        'key1' => 'value1',
+        'key2' => array(
+            'nombre' => 'lionel'
+        ),
+    ));
+}
+
+----- 
+
+VIDEO 20
+
+tipos de parametros que podemos pasar en una ruta por GET vvv 
+
+https://codeigniter4.github.io/userguide/incoming/routing.html#placeholders
+
+*** comando spark
+php spark routes -> visualizar por consola todas las rutas del proyecto
+
+* en el router -> funcion codeigniter de generar implicitamente el codigo para un grupo de rutas para el CRUD completo de un recurso vvv 
+
+$routes->presenter('home'); // php spark routes -> resultado por consola vvv 
+
++--------+------------------+------+----------------------------------+----------------+---------------+
+| Method | Route            | Name | Handler                          | Before Filters | After Filters |
++--------+------------------+------+----------------------------------+----------------+---------------+
+| GET    | home             | »    | \App\Controllers\Home::index     |                | toolbar       |
+| GET    | home/show/(.*)   | »    | \App\Controllers\Home::show/$1   |                | toolbar       |
+| GET    | home/new         | »    | \App\Controllers\Home::new       |                | toolbar       |
+| GET    | home/edit/(.*)   | »    | \App\Controllers\Home::edit/$1   |                | toolbar       |
+| GET    | home/remove/(.*) | »    | \App\Controllers\Home::remove/$1 |                | toolbar       |
+| GET    | home/(.*)        | »    | \App\Controllers\Home::show/$1   |                | toolbar       |
+| POST   | home/create      | »    | \App\Controllers\Home::create    |                | toolbar       |
+| POST   | home/update/(.*) | »    | \App\Controllers\Home::update/$1 |                | toolbar       |
+| POST   | home/delete/(.*) | »    | \App\Controllers\Home::delete/$1 |                | toolbar       |
+| POST   | home             | »    | \App\Controllers\Home::create    |                | toolbar       |
++--------+------------------+------+----------------------------------+----------------+---------------+
+
+*** presenter nos sirve cuando estamos implementando una aplicacion web, ya que todos los endpoints que genera son GET y POST, soportados por la API de HTML (es decir para aplicaciones que van a ser consumidas desde un navegador web)
+
+----- 
+
+* en el router -> funcion codeigniter de generar implicitamente el codigo para un grupo de rutas para el CRUD completo de un recurso vvv 
+
+$routes->resource('home'); // php spark routes -> resultado por consola vvv 
+
++--------+----------------+------+----------------------------------+----------------+---------------+
+| Method | Route          | Name | Handler                          | Before Filters | After Filters |
++--------+----------------+------+----------------------------------+----------------+---------------+
+| GET    | home           | »    | \App\Controllers\Home::index     |                | toolbar       |
+| GET    | home/new       | »    | \App\Controllers\Home::new       |                | toolbar       |
+| GET    | home/(.*)/edit | »    | \App\Controllers\Home::edit/$1   |                | toolbar       |
+| GET    | home/(.*)      | »    | \App\Controllers\Home::show/$1   |                | toolbar       |
+| POST   | home           | »    | \App\Controllers\Home::create    |                | toolbar       |
+| PATCH  | home/(.*)      | »    | \App\Controllers\Home::update/$1 |                | toolbar       |
+| PUT    | home/(.*)      | »    | \App\Controllers\Home::update/$1 |                | toolbar       |
+| DELETE | home/(.*)      | »    | \App\Controllers\Home::delete/$1 |                | toolbar       |
++--------+----------------+------+----------------------------------+----------------+---------------+
+
+*** resource nos sirve cuando estamos implementando una API RESTFUL, ya que genera endpoints del tipo PATCH, POST y DELETE, no soportados por la API de HTML
+
+----- 
+
+VIDEO 21
