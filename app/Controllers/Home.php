@@ -8,10 +8,4 @@ class Home extends BaseController
     {
         return view('welcome_message');
     }
-    public function update($user, $id = null)
-    {
-        echo $id ? $id : "nada";
-        echo "<br>";
-        echo $user;
-    }
 }

@@ -128,4 +128,11 @@ $routes->resource('home'); // php spark routes -> resultado por consola vvv
 
 ----- 
 
-VIDEO 21
+VIDEO 26
+
+Vamos a crear la estructura de la BD con las migraciones 
+
+*** comando spark
+php spark make:migration Peliculas -> creé la migracion para la tabla peliculas en /app/Database/Migrations/2023-04-24-023405_Peliculas.php
+
+*** primero tenemos que crear las tablas que no tienen llaves foraneas (es decir, no tienen referencias a otras tablas entre sus columnas)

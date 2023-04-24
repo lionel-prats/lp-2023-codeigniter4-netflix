@@ -29,20 +29,11 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-//$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index');
+$routes->get('/pelicula', 'Pelicula::index');
 
-// $routes->get('/index', 'Home::index'); // listado
 
-// $routes->get('/new', 'Home::new'); // form de creacion
-// $routes->post('/create', 'Home::create'); // procesar form de creacion
 
-// $routes->get('/edit/(:num)', 'Home::edit/$1'); // form de edicion
-// $routes->put('/update/(:num)', 'Home::update/$1'); // procesar form de edicion
-
-// $routes->delete('/delete/(:num)', 'Home::delete/$1'); // elimina
-
-//$routes->presenter('home');
-$routes->resource('home');
 
 /*
  * --------------------------------------------------------------------
